@@ -5,10 +5,9 @@ RUN apt-get update \
  # 必要最小限のパッケージを入れる
  && apt-get install -y --no-install-recommends \
     libzip-dev \
-    libxml2-dev \
- # 掃除
- && docker-php-ext-configure zip \
+ # 拡張パッケージのインストール
  && docker-php-ext-install zip \
+ # 掃除
  && apt-get -y clean \
  && rm -rf /var/lib/apt/lists/*
 
