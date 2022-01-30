@@ -1,0 +1,16 @@
+FROM php:8.1.2-fpm
+
+# install するパッケージを最新に
+RUN apt-get update \
+ # 必要最小限のパッケージを入れる
+ && apt-get install -y --no-install-recommends \
+    libzip-dev \
+    libxml2-dev \
+ # 掃除
+ && docker-php-ext-configure zip \
+ && docker-php-ext-install zip \
+ && apt-get -y clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# composer install
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
